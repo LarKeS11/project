@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="vendor/js/popper.min.js" async></script>
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+    <script src="vendor/js/bootstrap.min.js" defer></script>
+    <script src="main.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="jquery.validate.min.js"></script>
+    <script src="jquery.validate.js"></script>
+   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+      
+    <title>Document</title>
+   <script>
+       //sixteen
+    function fl(n){
+        if (n/16>=0){
+        return Math.floor(n/16)
+        }
+        else{
+        return Math.ceil(n/16)
+        }
+}
+function vb(n){
+        let alf={10:'A', 11:'B', 12:'C',13:'D',14:'E', 15:'F', 16:'G', 17:'H', 
+        18:'I', 19:'J', 20:'K', 21:'L', 22:'M', 23:'N', 24:'O', 25:'P', 
+        26:'Q', 27:'R', 28:'S', 29:'T',30:'U', 31:'V', 32:'W', 33:'X',34:'Y',35:'Z'};
+
+        if(n%16>=10){
+        return alf[n%16];
+        }
+        else{
+        return String(n%16);
+        }  
+}
+    function sixteen(num){
+        if(num<16){
+            return String(num);
+        }
+        else{
+        return sixteen(fl(num))+vb(num)
+        }
+    }
+    //eigth
+    function fl_eigth(n_eigth){
+            if (n_eigth/8>=0){
+            return Math.floor(n_eigth/8)
+            }
+            else{
+            return Math.ceil(n_eigth/8)
+            }
+}
+
+       function eigth(n_eigth){
+            if(n_eigth<8){
+                return String(n_eigth);
+            }
+            else{
+            return eigth(fl_eigth(n_eigth))+String(n_eigth%8)
+            }
+       }
+    //two
+    function fl_two(n_two){
+            if (n_two/2>=0){
+            return Math.floor(n_two/2)
+            }
+            else{
+            return Math.ceil(n_two/2)
+            }
+}
+
+       function two(n_two){
+            if(n_two<2){
+                return String(n_two);
+            }
+            else{
+            return two(fl_two(n_two))+String(n_two%2)
+            }
+       }
+    //ten
+    function ten(num,os){
+        let str=String(num).split('').reverse();
+        let arr=[];
+        console.log(str)
+        var l=1;
+        let k=str.length;
+        for(let i=0;i<k;i++){
+            let g=str[i];
+        
+            let ft=Math.pow(os,i)*Number(g);
+            arr.push(ft);
+        }
+        let sul=0;
+      for(var j=0;j<arr.length;j++){
+        sul+=arr[j];
+      }
+      arr=[];
+        return(sul)
+        sul=0;
+    } 
+    $(document).ready(function(){
+       
+        $('.up').hide();
+        $('.down').hide();
+        $('.tran').hide();
+        $('#sumb').validate();
+        $(window).load(function(){
+            if($(window).width()>'1200'){
+                $('.anim').css('margin-left','-1150px');
+                $('.anim').animate(
+                    {
+                        'margin-left':'-240px',
+                         opasity:1,
+                    },
+                    1500
+                );
+                $(window).scroll(function(){
+                if(($(window).scrollTop()>120)&&($(window).scrollTop()<220)){
+                    $('.tran').fadeIn(1500);
+                }
+                if(($(window).scrollTop()>520)&&($(window).scrollTop()<620)){
+                    $('.up').slideDown(1500);
+                }
+                if(($(window).scrollTop()>1320)&&($(window).scrollTop()<1420)){
+                    $('.down').slideDown(1500);
+                }
+            });
+        }
+             if($(window).width()<'776'){
+                 $('.anim').hide();
+                 $('.anim').slideDown(4500);
+              
+           
+     
+        }
+       
+        
+   
+        });
+        let x=0;
+        //шестнадцатеричная
+        $('.bu').focus(function(){
+            $('.bi').prop('disabled',false)
+            $('.bi').css('cursor','pointer');
+        });
+    
+        $('.bi').click(function(evt){
+                $('.bi').prop('disabled',false)
+                x=$('.bu').val();          
+                $('.bu').val(sixteen(x));
+                $('.bi').prop('disabled',true)
+                evt.preventDefault();
+                $('.bi').css('cursor','cell');   
+                x=0;
+        });
+        //восьмеричная
+        $('.butt').focus(function(){
+            $('.bitt').prop('disabled',false)
+            $('.bitt').css('cursor','pointer');
+        });
+    
+        $('.bitt').click(function(evt){
+                $('.bitt').prop('disabled',false)
+                x=$('.butt').val();          
+                $('.butt').val(eigth(x));
+                $('.bitt').prop('disabled',true)
+                evt.preventDefault();
+                $('.bitt').css('cursor','cell');   
+                x=0;
+           
+        });  
+       //двоичная
+        $('.buut').focus(function(){
+            $('.biit').prop('disabled',false)
+            $('.biit').css('cursor','pointer');
+        });
+    
+        $('.biit').click(function(evt){
+                $('.biit').prop('disabled',false)
+                x=$('.buut').val();          
+                $('.buut').val(two(x));
+                $('.biit').prop('disabled',true)
+                evt.preventDefault();
+                $('.biit').css('cursor','cell');   
+                x=0;
+        });  
+        //десятеричная
+        let os=0;
+        $('.bb').focus(function(){
+            $('.bbit').prop('disabled',false)
+            $('.bbit').css('cursor','pointer');
+        });
+    
+        $('.bbit').click(function(evt){
+                $('.bbit').prop('disabled',false)
+                x=$('.bb').val();    
+                os=$("#lo").val();
+                $('.bb').val(ten(x,os));
+                $('.bbit').prop('disabled',true)
+                evt.preventDefault();
+                $('.bbit').css('cursor','cell');   
+                x=0;
+        });  
+    });  
+   </script>
+</head>
+<body>
+    <script src="three.min.js"></script>
+    <script src="vanta.waves.min.js"></script>
+    
+    <div class=" hed" id="her">
+        <div class="container lol">
+            <div class="row mb-3" id="hed">
+            <div class="col-lg-7 col-md-12 col-xs-12">
+                <p class="hello anim">Рад видеть тебя на <br>
+                     моём сайте!</p>
+            </div>
+            <div class="col-lg-8 col-md-8 col-xs-12 fg">
+                <p class="txt anim">
+                    Здесь ты сможешь получить <br>
+                     быстрое решение по различным <br>
+                     математическим задачам <br> и не только.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-mg-6 col-xs-1 " id="im">
+            <img src="vector-creator (6) 1.png" alt="" >
+        </div>
+    </div>
+</div>
+
+<script>
+    VANTA.WAVES({
+      el: "#her",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00
+    });
+</script>
+
+    <style>
+        .fg{
+            margin-top:90px;
+        }
+        .hed{
+           
+          /*  background: url('bg.svg');*/
+         /*   background-repeat: no-repeat;*/
+           /* background-position: center;
+           background-size: cover;*/
+           
+           
+            margin-left: 0px;
+
+
+
+        }
+    </style>
+   
+   <div class="call">
+       <p class="tran">Перевести в:</p>
+       <div class="container-my" id="gh">
+
+            <div class="row mb-4 " id='vb'>
+                <div class="m-1 col-lg-5 col-md-7 col-xs-3 up" id="">
+                    <div class="block">
+                        
+                        <p class="titul">Шестнадцатеричную <br>
+                                  систему:</p>
+                        <p class="titul bv">Введите число:</p>
+                    <form action="" id="sumb">
+                        <input type="text" class="but bu digits" id="color-placeholder">
+                        <button type="sumbit" value="ОК" class=" bit bi">ОК</button>
+                        
+                    </form>
+                    </div>
+                </div>
+
+                <div class="m-1 col-lg-5 col-md-7 col-xs-3 up" id="">
+                    <div class="block" id="">
+                        <p class="titul">Восьмеречную <br>
+                            систему:</p>
+                  <p class="titul bv">Введите число:</p>
+                  <form action="">
+                    <input type="text" class="but butt digits" id="color-placeholder">
+                    <button type="sumbit" value="ОК" class="bit bitt">ОК</button>
+                    
+                </form>
+              </div>
+                    </div>
+              
+                
+                <div class="m-1 col-lg-5 col-md-7 rt col-xs-3 down" id="idd">
+                    <div class="block">
+                        <p class="titul">Двоичную <br>
+                            систему:</p>
+                  <p class="titul bv">Введите число:</p>
+                  <form action="">
+                    <input type="text" class="but buut digits" id="color-placeholder">
+                    <button type="sumbit" value="ОК" class="bit biit">ОК</button>
+                    
+                </form>
+              </div>
+              
+                    </div>
+                    <div class="m-1 col-lg-5 col-md-7 rt col-xs-3 down" id="idd">
+                        <div class="block">
+                            <p class="titul">Десятеричную <br>
+                                систему:</p>
+                      <p class="titul bv">Введите число:</p>
+                      <form action="">
+                        <input type="text" class="bb digits" id="color-placeholder gh">
+                        <input type="text" class="but" id='lo'>
+                        <button type="sumbit" value="ОК" class="bit bbit">ОК</button>
+                        
+                    </form>
+                        </div>
+             
+                    </div>
+                </div>
+                </div>
+    
+                
+         
+        </div>
+        </div>
+    </div>
+</body>
+</html>
